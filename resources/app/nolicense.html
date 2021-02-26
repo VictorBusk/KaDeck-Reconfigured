@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>License Activation Center</title>
+    <link rel="icon" type="image/x-icon" href="assets/icons/icon.ico">
+    <style>
+        @font-face {
+            font-family: 'robotolight';
+            src: url('assets/roboto-light-webfont.woff2') format('woff2'),
+            url('assets/roboto-light-webfont.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+
+        }
+
+        @font-face {
+            font-family: 'robotomedium';
+            src: url('assets/roboto-medium-webfont.woff2') format('woff2'),
+            url('assets/roboto-medium-webfont.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'robotoregular';
+            src: url('assets/roboto-regular-webfont.woff2') format('woff2'),
+            url('assets/roboto-regular-webfont.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .button_bar {
+            align-self: flex-end;
+            flex: 1;
+            position: fixed;
+            bottom: 10px;
+            display: flex;
+        }
+
+        .information {
+            flex: 2;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            font-family: 'robotoregular';
+            font-size: 13px;
+            padding: 0;
+            margin: 0;
+            user-select: none;
+            background-color: #fff;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 13px;
+            margin-block-start: 0px;
+            margin-block-end: 0px;
+        }
+
+        p {
+            margin-block-start: 8px;
+            line-height: 21px;
+            user-select: none;
+        }
+
+        button {
+            background: #c3c3c3;
+            padding: 8px 40px;
+            border: none;
+            color: #000;
+        }
+
+        button:hover {
+            color: #ffffff;
+            background: #5c5c5c;
+        }
+
+        button:active, button:focus {
+            background-color: #404040;
+            outline: none;
+            color: #fff;
+        }
+
+        button.main {
+            margin-right: 10px;
+        }
+
+        button.main {
+            background-color: #0c6bbe;
+            color: #fff;
+            font-size: 18px;
+        }
+
+        button.main:hover {
+            background-color: #40a6ff;
+
+        }
+
+        button.main:active, button#more-btn:focus {
+            outline: none;
+            background-color: #2283d7;
+        }
+
+        .background {
+            width: 750px;
+            height: 600px;
+            background: url("assets/KaDeck_Eckkbanner.png") no-repeat;
+            background-size: 360px;
+            padding: 30px 40px;
+        }
+
+        .header {
+            text-align: right;
+
+        }
+
+        .title {
+            margin-left: 240px;
+            font-size: 48px;
+            font-weight: 300;
+            font-family: 'robotolight';
+            color: #1a3657;
+            margin-top: 45px;
+        }
+
+        .subline {
+            margin-left: 310px;
+            font-size: 30px;
+            font-weight: 300;
+            font-family: 'robotomedium';
+            color: #1a3657;
+        }
+
+        .content {
+            font-family: 'robotoregular';
+            color: #1a3657;
+            font-size: 13px;
+            margin-left: 120px;
+            margin-top: 90px;
+        }
+        input[type=text]:placeholder-shown, input[type=number]:placeholder-shown, textarea:placeholder-shown{
+            border-color:#F3F3F3;
+        }
+
+        input[type=text]:placeholder-shown:focus, input[type=number]:placeholder-shown:focus, textarea:placeholder-shown:focus{
+            border-color: #3F3F3F;
+        }
+
+        input[type=text], input[type=number], textarea{
+            padding: 4px;
+            border: 1px solid #3F3F3F;
+            color: #3F3F3F;
+            background-color: #ffffff;
+            outline: none;
+            width: 462px;
+            height: 30px;
+            font-size: 18px;
+        }
+
+        input[type=text]::placeholder, input[type=number]::placeholder, textarea::placeholder{
+            color:#CACACA;
+        }
+
+        input[type=text]:disabled, input[type=number]:disabled, textarea:disabled{
+            background-color:#F3F3F3;
+            border-color:#CACACA;
+        }
+
+        input[type=text]:focus, input[type=number]:focus, textarea:focus{
+            border: 1px solid #235B9C;
+            color: #235B9C;
+        }
+
+
+        a {
+            color: #1883ff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #007bff;
+            text-decoration: underline;
+        }
+        .imprint{
+            color: #6e6e6e;
+        }
+
+        .hidden{
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+<div class="background">
+    <div class="header">
+        <div class="subline">License Activation Center</div>
+        <div class="title">KaDeck Desktop</div>
+    </div>
+    <div class="content hidden" id="newlicense">
+        <p id="new_license_message" class="hidden"></p>
+
+        Enter your license key to activate your copy of KaDeck Desktop.
+        <p>
+            <input type="text" placeholder="Your License Key" id="license_key"/> <button class="main" onclick="onClickActivate()">Activate</button>
+        </p>
+        <p>
+            If you are experiencing any issues while activating your copy, please contact our <a
+                href="https://support.xeotek.com/hc/en-us/requests/new" target="_blank">customer support</a>.
+        </p>
+    </div>
+    <div class="content hidden" id="error">
+        <span id="error_text"></span>
+        <p>
+            <button class="main" onclick="getCurrentStatus()">Retry</button>
+        </p>
+        <p>
+            If you are experiencing any issues while activating your copy, please contact our <a
+                href="https://support.xeotek.com/hc/en-us/requests/new" target="_blank">customer support</a>.
+        </p>
+    </div>
+    <div class="content hidden" id="loading">
+        Loading...
+    </div>
+</div>
+<script>
+    const shell = require('electron').shell;
+    const remote = require('electron').remote;
+
+    // document.getElementById("close-btn").addEventListener("click", function (e) {
+    //     var window = remote.getCurrentWindow();
+    //     window.close();
+    // });
+
+    // document.getElementById("more-btn").addEventListener("click", function (e) {
+    //     e.preventDefault();
+    //     shell.openExternal("https://www.kadeck.com/whats-new/");
+    //     window.close();
+    // });
+
+    const headers = {
+        'license':'0abdea078047xsFRxKnlZa128caI104d69b-ProfessionalEdition'
+    };
+    const appUrl = 'http://localhost:8143/api/license_activation';
+
+    getCurrentStatus();
+
+    function onClickActivate(){
+        let input = document.getElementById("license_key").value;
+
+        input = decodeURI(input);
+        showLoading();
+        document.getElementById("newlicense").style.display = "none";
+        fetch(appUrl, {
+            method: 'post',
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                'license':headers.license
+            },
+            body: JSON.stringify({"license_key":input})
+        }).then(response => {
+            hideLoading();
+            if(response.status === 504){
+                showError("No connection to our license server possible. Do you have a working internet connection?");
+                return;
+            }
+            response.json().then(jsonVal => {
+                if (response.status === 200 && jsonVal.status === "SUCCESS") {
+                    var window = remote.getCurrentWindow();
+                    window.close();
+                }else if (jsonVal.status === "ALLOC"){
+                    showError("Maximum number of activations reached. Please contact support@kadeck.com to change your activations or to activate any additional machines.", "ALLOC");
+                }else {
+                    showError("License is not valid", "NOT_VALID");
+                }
+            })
+        }).catch(reason => {
+            hideLoading();
+            if(reason.status === 504){
+                showError("No connection to our license server possible. Do you have a working internet connection?");
+                return;
+            }
+            showError()
+        });
+
+    }
+
+    function showLoading() {
+        hideError();
+        hideNewLicenseActivation();
+        document.getElementById("loading").style.display = "block";
+    }
+
+    function showError(error) {
+        document.getElementById("error_text").innerText=error?error:"An unknown error has occurred.";
+        document.getElementById("error").style.display = "block";
+    }
+    function hideError() {
+        document.getElementById("error").style.display = "none";
+    }
+
+    function hideLoading() {
+        document.getElementById("loading").style.display = "none";
+    }
+
+    function showNewLicenseActivation(value) {
+        document.getElementById("newlicense").style.display = "block";
+        if(value.status === "EXPIRED" || value.status === "ALLOC"){
+            document.getElementById("new_license_message").innerText = value.status==="ALLOC"?"Maximum numbers of activations reached. Contact support@kadeck.com to activate any additional machines.":"Your license has expired.";
+            document.getElementById("new_license_message").style.display = "block";
+        }else{
+            document.getElementById("new_license_message").style.display = "none";
+        }
+        console.log(JSON.stringify(value))
+    }
+
+    function hideNewLicenseActivation() {
+        document.getElementById("newlicense").style.display = "none";
+    }
+
+    function getCurrentStatus(){
+        showLoading();
+        fetch(appUrl)
+            .then(response =>{
+                response.json().then(value => {
+                    hideLoading();
+                    showNewLicenseActivation(value);
+                    console.log(`My value ${value}`)
+                });
+                if (response.status >= 200 && response.status < 300) {
+                    return Promise.resolve(response)
+                } else {
+                    return Promise.reject(new Error(response.statusText))
+                }
+            })
+            .then(data =>{
+                console.log(data.body);
+                console.log('Request succeeded with JSON response', data);
+            }).catch(error =>{
+            hideLoading();
+            showError();
+            console.log('Request failed', error);
+        });
+    }
+
+    function sendLicenseValidaationRequest() {
+        fetch(url, {
+            method: 'post',
+            headers: {
+                "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+            },
+            body: 'foo=bar&lorem=ipsum'
+        })
+            .then(json)
+            .then(function (data) {
+                console.log('Request succeeded with JSON response', data);
+            })
+            .catch(function (error) {
+                console.log('Request failed', error);
+            });
+    }
+
+</script>
+</body>
+</html>
